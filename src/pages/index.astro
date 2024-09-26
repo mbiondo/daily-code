@@ -1,16 +1,50 @@
 ---
+import { and, db, eq, ExerciseResponses, Exercises, MultilingualTexts } from "astro:db"
 
+const exercise = await db
+	.select()
+	.from(Exercises)
+	.innerJoin(MultilingualTexts, eq(Exercises.id, MultilingualTexts.exerciseId))
+	.where(eq(MultilingualTexts.language, "pt"))
+	.get()
+
+const responses = await db
+	.select()
+	.from(ExerciseResponses)
+	.innerJoin(MultilingualTexts, eq(ExerciseResponses.id, MultilingualTexts.responseId))
+	.where(and(eq(ExerciseResponses.exerciseId, 1), eq(MultilingualTexts.language, "pt")))
 ---
 
-<html lang="en">
+<html lang='en'>
 	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
+		<meta charset='utf-8' />
+		<link rel='icon' type='image/svg+xml' href='/favicon.svg' />
+		<meta name='viewport' content='width=device-width' />
+		<meta name='generator' content={Astro.generator} />
 		<title>Astro</title>
 	</head>
 	<body>
 		<h1>Astro</h1>
+		<p>{exercise?.MultilingualTexts.text}</p>
+		<pre>
+			<code>
+				{exercise?.Exercises.code}
+			</code>
+		</pre>
+		<form action='/submit' method='post'>
+			<ul>
+				{
+					responses.map((response) => (
+						<li>
+							<label>
+								<input type='radio' name='response' value={response.MultilingualTexts.text} />
+								{response.MultilingualTexts.text}
+							</label>
+						</li>
+					))
+				}
+			</ul>
+			<button type='submit'>Submit</button>
+		</form>
 	</body>
 </html>
