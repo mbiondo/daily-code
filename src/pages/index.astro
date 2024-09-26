@@ -1,18 +1,18 @@
 ---
-import { and, db, eq, ExerciseResponses, Exercises, MultilingualTexts } from "astro:db"
+import { and, db, eq, ExerciseResponse, Exercise, MultilingualText } from "astro:db"
 
 const exercise = await db
 	.select()
-	.from(Exercises)
-	.innerJoin(MultilingualTexts, eq(Exercises.id, MultilingualTexts.exerciseId))
-	.where(eq(MultilingualTexts.language, "pt"))
+	.from(Exercise)
+	.innerJoin(MultilingualText, eq(Exercise.id, MultilingualText.exerciseId))
+	.where(eq(MultilingualText.language, "pt"))
 	.get()
 
 const responses = await db
 	.select()
-	.from(ExerciseResponses)
-	.innerJoin(MultilingualTexts, eq(ExerciseResponses.id, MultilingualTexts.responseId))
-	.where(and(eq(ExerciseResponses.exerciseId, 1), eq(MultilingualTexts.language, "pt")))
+	.from(ExerciseResponse)
+	.innerJoin(MultilingualText, eq(ExerciseResponse.id, MultilingualText.responseId))
+	.where(and(eq(ExerciseResponse.exerciseId, 1), eq(MultilingualText.language, "pt")))
 ---
 
 <html lang='en'>
@@ -25,10 +25,10 @@ const responses = await db
 	</head>
 	<body>
 		<h1>Astro</h1>
-		<p>{exercise?.MultilingualTexts.text}</p>
+		<p>{exercise?.MultilingualText.text}</p>
 		<pre>
 			<code>
-				{exercise?.Exercises.code}
+				{exercise?.Exercise.code}
 			</code>
 		</pre>
 		<form action='/submit' method='post'>
@@ -37,8 +37,8 @@ const responses = await db
 					responses.map((response) => (
 						<li>
 							<label>
-								<input type='radio' name='response' value={response.MultilingualTexts.text} />
-								{response.MultilingualTexts.text}
+								<input type='radio' name='response' value={response.MultilingualText.text} />
+								{response.MultilingualText.text}
 							</label>
 						</li>
 					))

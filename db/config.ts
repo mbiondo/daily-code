@@ -1,13 +1,13 @@
 import { defineDb } from 'astro:db';
 import {
-  Users,
-  Exercises,
-  ExerciseResponses,
-  MultilingualTexts,
-  Regions,
-  RegionalRankings,
-  UserRegions,
-  UserExerciseResults,
+  User,
+  Exercise,
+  ExerciseResponse,
+  MultilingualText,
+  Region,
+  RegionalRanking,
+  UserRegion,
+  UserExerciseResult,
 
 } from './tables';
 
@@ -15,13 +15,13 @@ import {
 // https://astro.build/db/config
 export default defineDb({
   tables: {
-    Users,
-    Exercises,
-    ExerciseResponses,
-    MultilingualTexts,
-    Regions,
-    RegionalRankings,
-    UserRegions,
-    UserExerciseResults
+    User,
+    Exercise,
+    ExerciseResponse,
+    MultilingualText,
+    Region,
+    RegionalRanking,
+    UserRegion,
+    UserExerciseResult
   }
 });

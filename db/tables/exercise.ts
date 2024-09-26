@@ -1,7 +1,7 @@
 import { defineTable, column, NOW } from 'astro:db';
 
 
-export const Exercises = defineTable({
+export const Exercise = defineTable({
   columns: {
     id: column.number({ primaryKey: true }),
     code: column.text(),

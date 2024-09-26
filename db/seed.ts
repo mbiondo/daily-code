@@ -1,10 +1,10 @@
 
-import {Users, Exercises, MultilingualTexts, ExerciseResponses, UserExerciseResults, Regions, UserRegions, RegionalRankings, db } from 'astro:db';
+import { User, Exercise, MultilingualText, ExerciseResponse, UserExerciseResult, Region, UserRegion, RegionalRanking, db } from 'astro:db';
 
 
 
 export default async function seed() {
-  await db.insert(Users).values([
+  await db.insert(User).values([
     {
       id: 1,
       username: 'admin',
@@ -48,7 +48,7 @@ export default async function seed() {
   ]);
 
  
-  await db.insert(Exercises).values([
+  await db.insert(Exercise).values([
 		 {
 			id: 1,
 			code: `
@@ -108,7 +108,7 @@ const car2 = new Car()
 		}
   ]);
 
-  await db.insert(ExerciseResponses).values([
+  await db.insert(ExerciseResponse).values([
 		{
 			id: 1,
 			exerciseId: 1,
@@ -131,7 +131,7 @@ const car2 = new Car()
 		},
   ]);
 
-  await db.insert(UserExerciseResults).values([
+  await db.insert(UserExerciseResult).values([
     {
       id: 1,
       userId: 1,
@@ -141,7 +141,7 @@ const car2 = new Car()
     },
   ]);
 	
-  await db.insert(MultilingualTexts).values([
+  await db.insert(MultilingualText).values([
 		{
 			id: 1,
 			referenceId: 1,
@@ -321,7 +321,7 @@ const car2 = new Car()
   ]);
 
   
-  await db.insert(Regions).values([
+  await db.insert(Region).values([
     {
       id: 1,
       name: 'North America'
@@ -341,7 +341,7 @@ const car2 = new Car()
   ]);
 
 
-  await db.insert(UserRegions).values([
+  await db.insert(UserRegion).values([
     {
       userId: 1,
       regionId: 1
@@ -365,7 +365,7 @@ const car2 = new Car()
   ]);
 
  
-  await db.insert(RegionalRankings).values([
+  await db.insert(RegionalRanking).values([
     {
       id: 1,
       regionId: 1,

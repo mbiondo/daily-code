@@ -1,8 +1,9 @@
-export { Users } from './users';
-export { Exercises } from './exercises';
-export { MultilingualTexts } from './multilingualTexts';
-export { ExerciseResponses } from './exerciseResponses';
-export { UserExerciseResults } from './userExerciseResults';
-export { Regions } from './regions';
-export { UserRegions } from './userRegions';
-export { RegionalRankings } from './regionalRankings';
+export { Exercise } from './exercise';
+export { ExerciseResponse } from './exerciseResponse';
+export { MultilingualText } from './multilingualText';
+export { Region } from './region';
+export { RegionalRanking } from './regionalRanking';
+export { User } from './user';
+export { UserExerciseResult } from './userExerciseResult';
+export { UserRegion } from './userRegion';
+

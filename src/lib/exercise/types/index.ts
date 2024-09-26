@@ -1,4 +1,4 @@
-import type { User } from "../../core/types/user";
+import type { User } from "@lib/core/types/user";
 
 export interface Exercise {
   id: number;
@@ -15,7 +15,7 @@ export interface ExerciseResponse {
   correct: boolean;
 }
 
-export interface UserExerciseResults {
+export interface UserExerciseResult {
   user: User;
   exerciseId: number;
   socore: number;
