@@ -1,21 +1,22 @@
 ---
-import { Code } from 'astro:components';
+import { Code } from "astro:components"
+import type { BuiltinLanguage, LanguageRegistration, SpecialLanguage } from "shiki"
 
 interface Props {
-  code: string;
+	code: string
 }
 
-const { code } = Astro.props;
+const { code } = Astro.props
 
 function getLanguageFromCode(code: string): string {
-  const match = code.match(/^```(\w+)/);
-  return match ? match[1] : 'plaintext';
+	const match = code.match(/^```(\w+)/)
+	return match ? match[1] : "plaintext"
 }
 
-const language = getLanguageFromCode(code);
+const language = getLanguageFromCode(code) as BuiltinLanguage | SpecialLanguage | LanguageRegistration
 const formattedCode = code
-  .replace(/^```(\w+)?\n/, '')  // Elimina la primera línea que contiene ``` seguido de un lenguaje opcional
-  .replace(/```\s*$/, '');  
+	.replace(/^```(\w+)?\n/, "") // Elimina la primera línea que contiene ``` seguido de un lenguaje opcional
+	.replace(/```\s*$/, "")
 ---
 
-<Code code={formattedCode} lang={language} theme="github-dark" />
+<Code code={formattedCode} lang={language} theme='dracula' />
