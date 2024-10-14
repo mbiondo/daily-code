@@ -4,20 +4,10 @@ import Layout from "../../layouts/Layout.astro"
 import LanguageSelector from "../../components/LanguageSelector.astro"
 import CodeBlock from "../../components/CodeBlock.astro"
 
-export function getStaticPaths() {
-	return [
-		{ params: { lang: "en" } },
-		{ params: { lang: "es" } },
-		{ params: { lang: "fr" } },
-		{ params: { lang: "pt" } },
-		{ params: { lang: "it" } },
-	]
-}
-
 const { lang } = Astro.params
 
-const exercise = await db.getExercise(lang)
-const responses = await db.getExerciseResponses(exercise.Exercise.id, lang)
+const exercise = await db.getExercise(lang ?? "en")
+const responses = await db.getExerciseResponses(exercise.Exercise.id, lang ?? "en")
 ---
 
 <Layout title='Daily Code Challenge'>
