@@ -10,7 +10,7 @@ const exercise = await db.getExercise(lang ?? "en")
 const responses = await db.getExerciseResponses(exercise.Exercise.id, lang ?? "en")
 ---
 
-<Layout title='Daily Code Challenge'>
+<Layout title='Daily Code Challenge' currentLang={lang || "en"}>
 	<LanguageSelector currentLang={lang} slot='language-selector' transition:persist />
 
 	<div class='card bg-base-100 shadow-xl'>

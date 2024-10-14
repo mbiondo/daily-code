@@ -1,41 +1,43 @@
 ---
-import { db } from '../../lib/db';
-import Layout from '../../layouts/Layout.astro';
-import LanguageSelector from '../../components/LanguageSelector.astro';
+import { db } from "../../lib/db"
+import Layout from "../../layouts/Layout.astro"
+import LanguageSelector from "../../components/LanguageSelector.astro"
 
-const { lang } = Astro.params;
+const { lang } = Astro.params
 
-const rankings = await db.getTopRankings();
+const rankings = await db.getTopRankings()
 ---
 
-<Layout title="User Rankings">
-  <LanguageSelector currentLang={lang} slot="language-selector" transition:persist />
-  
-  <div class="card bg-base-100 shadow-xl">
-    <div class="card-body">
-      <h2 class="card-title text-2xl mb-4">Top Rankings</h2>
-      <div class="overflow-x-auto">
-        <table class="table table-zebra w-full">
-          <thead>
-            <tr>
-              <th>Rank</th>
-              <th>User</th>
-              <th>Region</th>
-              <th>Total Score</th>
-            </tr>
-          </thead>
-          <tbody>
-            {rankings.map((ranking, index) => (
-              <tr>
-                <td>{index + 1}</td>
-                <td>{ranking.User.username}</td>
-                <td>{ranking.Region.name}</td>
-                <td>{ranking.RegionalRanking.totalScore}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
+<Layout title='User Rankings' currentLang={lang || "en"}>
+	<LanguageSelector currentLang={lang} slot='language-selector' transition:persist />
+
+	<div class='card bg-base-100 shadow-xl'>
+		<div class='card-body'>
+			<h2 class='card-title text-2xl mb-4'>Top Rankings</h2>
+			<div class='overflow-x-auto'>
+				<table class='table table-zebra w-full'>
+					<thead>
+						<tr>
+							<th>Rank</th>
+							<th>User</th>
+							<th>Region</th>
+							<th>Total Score</th>
+						</tr>
+					</thead>
+					<tbody>
+						{
+							rankings.map((ranking, index) => (
+								<tr>
+									<td>{index + 1}</td>
+									<td>{ranking.User.username}</td>
+									<td>{ranking.Region.name}</td>
+									<td>{ranking.RegionalRanking.totalScore}</td>
+								</tr>
+							))
+						}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
 </Layout>
