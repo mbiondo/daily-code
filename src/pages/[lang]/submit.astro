@@ -1,0 +1,18 @@
+---
+import { db } from '../../lib/db';
+
+const { lang } = Astro.params;
+
+if (Astro.request.method === 'POST') {
+  const formData = await Astro.request.formData();
+  const responseId = Number(formData.get('response'));
+
+  // For demo purposes, we'll use a fixed user ID. In a real app, you'd use the logged-in user's ID.
+  const userId = 1;
+
+  await db.submitExerciseResponse(userId, responseId);
+}
+
+// Redirect back to the main page after submission
+return Astro.redirect(`/${lang}`);
+---

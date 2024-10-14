@@ -51,7 +51,7 @@ export default async function seed() {
   await db.insert(Exercise).values([
 		 {
 			id: 1,
-			code: `
+			code: `\`\`\`ts
 class Car {
 	private engine: string;
 	private color: string;
@@ -102,7 +102,7 @@ console.log(car1.getDescription());
 const car2 = new Car()
 	.setEngine('Electric')
 	.setColor('Blue')
-	.build();`,
+	.build();\`\`\``,
 			difficulty: 2,
 			createdAt: new Date(),
 		}

@@ -1,0 +1,22 @@
+---
+const languages = [
+  { code: 'en', name: 'English' },
+  { code: 'es', name: 'Español' },
+  { code: 'fr', name: 'Français' },
+  { code: 'pt', name: 'Português' },
+  { code: 'it', name: 'Italiano' },
+];
+
+const { currentLang } = Astro.props;
+---
+
+<div class="dropdown dropdown-end">
+  <div tabindex="0" role="button" class="btn m-1">
+    {languages.find(lang => lang.code === currentLang)?.name || 'Select Language'}
+  </div>
+  <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+    {languages.map((lang) => (
+      <li><a href={`/${lang.code}`}>{lang.name}</a></li>
+    ))}
+  </ul>
+</div>

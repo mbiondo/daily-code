@@ -1,0 +1,21 @@
+---
+import { Code } from 'astro:components';
+
+interface Props {
+  code: string;
+}
+
+const { code } = Astro.props;
+
+function getLanguageFromCode(code: string): string {
+  const match = code.match(/^```(\w+)/);
+  return match ? match[1] : 'plaintext';
+}
+
+const language = getLanguageFromCode(code);
+const formattedCode = code
+  .replace(/^```(\w+)?\n/, '')  // Elimina la primera línea que contiene ``` seguido de un lenguaje opcional
+  .replace(/```\s*$/, '');  
+---
+
+<Code code={formattedCode} lang={language} theme="github-dark" />

@@ -1,0 +1,51 @@
+---
+import { db } from "../../lib/db"
+import Layout from "../../layouts/Layout.astro"
+import LanguageSelector from "../../components/LanguageSelector.astro"
+import CodeBlock from "../../components/CodeBlock.astro"
+
+export const prerender = true
+
+export function getStaticPaths() {
+	return [
+		{ params: { lang: "en" } },
+		{ params: { lang: "es" } },
+		{ params: { lang: "fr" } },
+		{ params: { lang: "pt" } },
+		{ params: { lang: "it" } },
+	]
+}
+
+const { lang } = Astro.params
+
+const exercise = await db.getExercise(lang)
+const responses = await db.getExerciseResponses(exercise.Exercise.id, lang)
+---
+
+<Layout title='Daily Code Challenge'>
+	<LanguageSelector currentLang={lang} slot='language-selector' transition:persist />
+
+	<div class='card bg-base-100 shadow-xl'>
+		<div class='card-body'>
+			<h2 class='card-title text-2xl mb-4'>{exercise?.MultilingualText.text}</h2>
+			<div class='prose max-w-none mb-6'>
+				<CodeBlock code={exercise.Exercise.code} />
+			</div>
+			<form action={`/${lang}/submit`} method='post' class='mt-4'>
+				<div class='space-y-2'>
+					{
+						responses.map((response) => (
+							<div class='form-control'>
+								<label class='label cursor-pointer'>
+									<span class='label-text'>{response.MultilingualText.text}</span>
+									<input type='radio' name='response' value={response.ExerciseResponse.id} class='radio radio-primary' />
+								</label>
+							</div>
+						))
+					}
+				</div>
+				<button type='submit' class='btn btn-primary mt-6'>Submit</button>
+			</form>
+		</div>
+	</div>
+</Layout>
