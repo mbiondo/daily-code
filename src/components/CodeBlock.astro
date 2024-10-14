@@ -15,8 +15,8 @@ function getLanguageFromCode(code: string): string {
 
 const language = getLanguageFromCode(code) as BuiltinLanguage | SpecialLanguage | LanguageRegistration
 const formattedCode = code
-	.replace(/^```(\w+)?\n/, "") // Elimina la primera línea que contiene ``` seguido de un lenguaje opcional
-	.replace(/```\s*$/, "")
+	.replace(/^\`\`\`(\w+)?\n/, "") //
+	.replace(/\`\`\`\s*$/, "")
 ---
 
 <Code code={formattedCode} lang={language} theme='dracula' />
