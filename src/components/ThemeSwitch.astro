@@ -19,33 +19,15 @@
 
 		themeSwitch?.addEventListener("click", () => {
 			const currentTheme = html.getAttribute("data-theme")
-			const newTheme = currentTheme === "light" ? "dark" : "light"
+			const newTheme = currentTheme === "light" ? "dracula" : "light"
 			setTheme(newTheme)
 		})
 
-		// Set initial theme
 		const savedTheme = localStorage.getItem("theme") || "light"
 		setTheme(savedTheme)
-
-		// Update theme when it changes
-		const observer = new MutationObserver((mutations) => {
-			mutations.forEach((mutation) => {
-				if (mutation.type === "attributes" && mutation.attributeName === "data-theme") {
-					const newTheme = html.getAttribute("data-theme")
-					localStorage.setItem("theme", newTheme || "light")
-				}
-			})
-		})
-
-		observer.observe(html, { attributes: true })
 	}
 
 	document.addEventListener("astro:page-load", () => {
-		// This runs on first page load and after every navigation.
-		initTheme()
-	})
-	document.addEventListener("astro:after-swap", () => {
-		// This runs on first page load only.
 		initTheme()
 	})
 </script>
